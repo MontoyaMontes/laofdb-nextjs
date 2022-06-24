@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const MuestraSchema = new mongoose.Schema({
-  marca_temporal: {
+  marcaTemporal: {
     type: String,
     requiere: [true, "Campo requerido"],
   },
@@ -13,10 +13,14 @@ const MuestraSchema = new mongoose.Schema({
     type: String,
     requiere: [true, "Campo requerido"],
   },
-  numero_mandibula: {
+  numeroMandibula: {
     type: String,
     requiere: [true, "Campo requerido"],
   },
+  linkRecursos :{
+    type: String,
+    requiere: [true, "Campo requerido"],
+  }
 });
 
 export default mongoose.models.Muestra ||
