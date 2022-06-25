@@ -89,7 +89,7 @@ export default function Home({ muestras, morfologiasMandibulas }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(ctx) {
   await connectDB();
 
   const res = await Muestra.find({});
