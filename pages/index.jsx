@@ -5,7 +5,7 @@ import Muestra from "./models/Muestra";
 import MorfologiaMandibula from "./models/MorfologiaMandibula";
 
 export default function Home({ muestras, morfologiasMandibulas }) {
-  console.log(muestras);
+  // console.log(muestras);
   return (
     <div>
       <Head>
@@ -125,15 +125,15 @@ export async function getServerSideProps() {
     },
   ]);
 
-   console.log("---", res3, "---");
+  //console.log("---", res3, "---");
 
-  const morfologiasMandibulasP = res3.map((doc) => {
+  //const morfologiasMandibulasP = res3.map((doc) => {
     //const muestra = doc.toObject();
     //muestra._id = `${muestra._id}`;
     //return muestra;
-    console.log("DOC: ", doc);
+  //  console.log("DOC: ", doc);
     //return muestra
-  });
+  //});
 
   return { props: { muestras, morfologiasMandibulas: JSON.parse(JSON.stringify(morfologiasMandibulas)), fallback: false } };
 }
