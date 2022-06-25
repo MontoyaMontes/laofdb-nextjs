@@ -135,5 +135,5 @@ export async function getServerSideProps() {
     //return muestra
   });
 
-  return { props: { muestras, morfologiasMandibulas: JSON.parse(JSON.stringify(morfologiasMandibulas))  || [], fallback: false } };
+  return { props: { muestras || [], fallback: false, morfologiasMandibulas: JSON.parse(JSON.stringify(morfologiasMandibulas))  || [], fallback: false } };
 }
