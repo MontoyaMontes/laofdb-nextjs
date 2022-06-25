@@ -1,8 +1,6 @@
 import Head from "next/head";
 import { useState } from "react";
 
-import MorfologiasMandibula from './components/morfologiasMandibulas'
-
 export default function Home({ morfologiasMandibulas }) {
   const [cargado, setCargado] = useState(false)
 
