@@ -1,10 +1,10 @@
 import Head from "next/head";
 
-import connectDB from "../lib/dbConnect";
-import Muestra from "./models/Muestra";
-import MorfologiaMandibula from "./models/MorfologiaMandibula";
+// import connectDB from "../lib/dbConnect";
+//import Muestra from "./models/Muestra";
+// import MorfologiaMandibula from "./models/MorfologiaMandibula";
 
-export default function Home({ muestras, morfologiasMandibulas }) {
+export default function Home({ morfologiasMandibulas }) {
   // console.log(muestras);
   return (
     <div>
@@ -17,26 +17,8 @@ export default function Home({ muestras, morfologiasMandibulas }) {
       <main className="container">
         <h1>LAOF DataBase APP</h1>
         <h2>Muestras</h2>
-        {muestras.map(
-          ({
-            _id,
-            marcaTemporal,
-            evaluador,
-            nombre,
-            numeroMandibula,
-            linkRecursos,
-          }) => (
-            <div className="card mb-2" key={_id}>
-              <div className="card-body">
-                <div className="h4">ID: {numeroMandibula}</div>
-                <p>Nombre: {nombre}</p>
-                <p>Evaluador: {evaluador}</p>
-                <p>Marca temporal: {marcaTemporal}</p>
-                <p>Recursos: {linkRecursos}</p>
-              </div>
-            </div>
-          )
-        )}
+       
+
         <h2>Morfologías</h2>
         {morfologiasMandibulas.map(
           ({
@@ -90,50 +72,18 @@ export default function Home({ muestras, morfologiasMandibulas }) {
 }
 
 export async function getServerSideProps(ctx) {
-  await connectDB();
+  let dev = process.env.NODE_ENV !== 'production';
+  let { DEV_URL, PROD_URL } = process.env;
 
-  const res = await Muestra.find({});
+  // Llamada desde API
+  let response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/muestras`);
+  // extract the data
+  let data = await response.json();
 
-  // console.log("Response:", res);
+  return {
+    props: {
+      morfologiasMandibulas: data['message'],
+    },
+  };
 
-  const muestras = res.map((doc) => {
-    const muestra = doc.toObject();
-    muestra._id = `${muestra._id}`;
-    return muestra;
-  });
-
-  // console.log("Response:", res);
-
-  const res2 = await MorfologiaMandibula.find({});
-
-  const morfologiasMandibulas = res2.map((doc) => {
-    const morfologia = doc.toObject();
-    morfologia._id = `${morfologia._id}`;
-    return morfologia;
-  });
-
-  // console.log("---", res2, "---");
-
-  //const res3 = await MorfologiaMandibula.aggregate([
-  //  {
-  //    $lookup: {
-  //      from: "muestras",
-  //      localField: "numeroMandibula",
-  //      foreignField: "numeroMandibula",
-  //      as: "info",
-  //    },
-  //  },
-  //]);
-
-  //console.log("---", res3, "---");
-
-  //const morfologiasMandibulasP = res3.map((doc) => {
-    //const muestra = doc.toObject();
-    //muestra._id = `${muestra._id}`;
-    //return muestra;
-  //  console.log("DOC: ", doc);
-    //return muestra
-  //});
-
-  return { props: { muestras, morfologiasMandibulas: JSON.parse(JSON.stringify(morfologiasMandibulas)), fallback: false } };
 }
