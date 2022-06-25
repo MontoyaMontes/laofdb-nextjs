@@ -1,11 +1,15 @@
 import Head from "next/head";
+import { useState } from "react";
 
-// import connectDB from "../lib/dbConnect";
-//import Muestra from "./models/Muestra";
-// import MorfologiaMandibula from "./models/MorfologiaMandibula";
+import MorfologiasMandibula from './components/morfologiasMandibulas'
 
 export default function Home({ morfologiasMandibulas }) {
-  // console.log(muestras);
+  const [cargado, setCargado] = useState(false)
+
+  const handleClick = () => {
+    setCargado(!cargado)
+  }
+
   return (
     <div>
       <Head>
@@ -15,57 +19,65 @@ export default function Home({ morfologiasMandibulas }) {
       </Head>
 
       <main className="container">
-        <h1>LAOF DataBase APP</h1>
-        <h2>Muestras</h2>
-       
+        <div>
+          <h1>Base de datos Morfologías</h1>
+          <button onClick={handleClick}>
+            Carga datos
+          </button>
 
-        <h2>Morfologías</h2>
-        {morfologiasMandibulas.map(
-          ({
-            _id,
-            marcaTemporal,
-            evaluador,
-            nombre,
-            numeroMandibula,
-            idCodigoMandibula,
-            impresionTotalIzquierda,
-            mentonIzquierda,
-            anguloMandibularIzquierda,
-            anguloMandibularDerecha,
-            eversionGonialIzquierda,
-            eversionGonialDerecha,
-            margenInferiorIzquierda,
-            cuerpoMandibularIzquierda,
-            ramaMandibularIzquierda,
-            ramaMandibularDerecha,
-            incisuraMandibularEscotaduraSigmoideaIzquierda,
-            incisuraMandibularEscotaduraSigmoideaDerecha,
-            procesoCondilarIzquierda,
-            procesoCondilarDerecha,
-            procesoCoronoideIzquierda,
-            procesoCoronoideDerecha,
-            archoDentalIzquierda,
-            dientesNumero,
-            comentarios,
-            dienteIzquierda,
-          }) => (
-            <div className="card mb-2" key={_id}>
-              <div className="card-body">
-                <div className="h4">ID: {numeroMandibula} - {idCodigoMandibula}</div>
-                <p>Marca temporal: {marcaTemporal}</p>
-                <p>Evaluador: {evaluador}</p>
-                <p>Nombre: {nombre}</p>
-                <p>Impresion Total Izquierda: {impresionTotalIzquierda}</p>
-                <p>Menton Izquierda: {mentonIzquierda}</p>
-                <p>anguloMandibularIzquierda: {anguloMandibularIzquierda}</p>
-                <p>anguloMandibularDerecha: {anguloMandibularDerecha}</p>
-                <p>eversionGonialDerecha: {eversionGonialDerecha}</p>
-                <p>anguloMandibularDerecha: {anguloMandibularDerecha}</p>
-                <p>comentarios: {comentarios}</p>
-              </div>
-            </div>
-          )
-        )}
+          {
+            cargado ?
+              morfologiasMandibulas.map(
+                ({
+                  _id,
+                  marcaTemporal,
+                  evaluador,
+                  nombre,
+                  numeroMandibula,
+                  idCodigoMandibula,
+                  impresionTotalIzquierda,
+                  mentonIzquierda,
+                  anguloMandibularIzquierda,
+                  anguloMandibularDerecha,
+                  eversionGonialIzquierda,
+                  eversionGonialDerecha,
+                  margenInferiorIzquierda,
+                  cuerpoMandibularIzquierda,
+                  ramaMandibularIzquierda,
+                  ramaMandibularDerecha,
+                  incisuraMandibularEscotaduraSigmoideaIzquierda,
+                  incisuraMandibularEscotaduraSigmoideaDerecha,
+                  procesoCondilarIzquierda,
+                  procesoCondilarDerecha,
+                  procesoCoronoideIzquierda,
+                  procesoCoronoideDerecha,
+                  archoDentalIzquierda,
+                  dientesNumero,
+                  comentarios,
+                  dienteIzquierda,
+                }) => (
+                  <div className="card mb-2" key={_id}>
+                    <div className="card-body">
+                      <div className="h4">ID: {numeroMandibula} - {idCodigoMandibula}</div>
+                      <p>Marca temporal: {marcaTemporal}</p>
+                      <p>Evaluador: {evaluador}</p>
+                      <p>Nombre: {nombre}</p>
+                      <p>Impresion Total Izquierda: {impresionTotalIzquierda}</p>
+                      <p>Menton Izquierda: {mentonIzquierda}</p>
+                      <p>anguloMandibularIzquierda: {anguloMandibularIzquierda}</p>
+                      <p>anguloMandibularDerecha: {anguloMandibularDerecha}</p>
+                      <p>eversionGonialDerecha: {eversionGonialDerecha}</p>
+                      <p>anguloMandibularDerecha: {anguloMandibularDerecha}</p>
+                      <p>comentarios: {comentarios}</p>
+                    </div>
+                  </div>
+                )
+              )
+              :
+              <h1>Datos</h1>
+          }
+        </div>
+
       </main>
     </div>
   );
