@@ -114,16 +114,16 @@ export async function getServerSideProps() {
 
   // console.log("---", res2, "---");
 
-  const res3 = await MorfologiaMandibula.aggregate([
-    {
-      $lookup: {
-        from: "muestras",
-        localField: "numeroMandibula",
-        foreignField: "numeroMandibula",
-        as: "info",
-      },
-    },
-  ]);
+  //const res3 = await MorfologiaMandibula.aggregate([
+  //  {
+  //    $lookup: {
+  //      from: "muestras",
+  //      localField: "numeroMandibula",
+  //      foreignField: "numeroMandibula",
+  //      as: "info",
+  //    },
+  //  },
+  //]);
 
   //console.log("---", res3, "---");
 
