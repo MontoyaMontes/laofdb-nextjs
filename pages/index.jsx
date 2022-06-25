@@ -41,7 +41,11 @@ export default function Home({ muestras, morfologiasMandibulas }) {
         {morfologiasMandibulas.map(
           ({
             _id,
-            numeroMuestra,
+            marcaTemporal,
+            evaluador,
+            nombre,
+            numeroMandibula,
+            idCodigoMandibula,
             impresionTotalIzquierda,
             mentonIzquierda,
             anguloMandibularIzquierda,
@@ -65,7 +69,10 @@ export default function Home({ muestras, morfologiasMandibulas }) {
           }) => (
             <div className="card mb-2" key={_id}>
               <div className="card-body">
-                <div className="h4">ID: {numeroMuestra}</div>
+                <div className="h4">ID: {numeroMandibula} - {idCodigoMandibula}</div>
+                <p>Marca temporal: {marcaTemporal}</p>
+                <p>Evaluador: {evaluador}</p>
+                <p>Nombre: {nombre}</p>
                 <p>Impresion Total Izquierda: {impresionTotalIzquierda}</p>
                 <p>Menton Izquierda: {mentonIzquierda}</p>
                 <p>anguloMandibularIzquierda: {anguloMandibularIzquierda}</p>
@@ -105,7 +112,7 @@ export async function getServerSideProps() {
     return morfologia;
   });
 
-  console.log("---", res2, "---");
+  // console.log("---", res2, "---");
 
   const res3 = await MorfologiaMandibula.aggregate([
     {
@@ -118,7 +125,7 @@ export async function getServerSideProps() {
     },
   ]);
 
-  console.log("---", res3, "---");
+   console.log("---", res3, "---");
 
   const morfologiasMandibulasP = res3.map((doc) => {
     //const muestra = doc.toObject();
@@ -128,5 +135,5 @@ export async function getServerSideProps() {
     //return muestra
   });
 
-  return { props: { muestras, morfologiasMandibulas } };
+  return { props: { muestras, morfologiasMandibulas: JSON.parse(JSON.stringify(morfologiasMandibulas))  || [], fallback: false } };
 }

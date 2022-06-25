@@ -18,19 +18,18 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## App created with NextJs fot LAOF to manage National Records (DB)
+## App created with NextJs for LAOF to manage National Records
 
 ### Montoya Montes P
-
 
 ## Deploy on Vercel
 
 Link to vercel (WIP)
 
 ## TODO:
-    [ ] Agregar link de recursos
-    [ ] Agregar link para entrar con ID (con navlink)
+    [ ] Agrega link para entrar con ID (con navlink)
     [ ] Agregar imagenes de muestra
     [ ] Agregar agregar/modificar datos?
-    [ ] Agregar documentos Ej. pesos
     [ ] Subir a vercel
+    [ ] Modificar documentos, eiminar información equivocada, así como ids y demás
+    [ ] MOdifica tarjetas en index de morfologias
