@@ -26,15 +26,15 @@ async function getMuestras(req,res){
     try {
         // connect to the database
         let { db } = await connectToDatabase();
-        // fetch morfologiamandibulas
-        let morfologiamandibulas = await db
-            .collection('morfologiamandibulas')
+        // fetch pesomandibulas
+        let pesomandibulas = await db
+            .collection('pesomandibulas')
             .find({}).limit(40)
             .sort({ published: -1 })
             .toArray();
-        // return morfologiamandibulas
+        // return pesomandibulas
         return res.json({
-            message: JSON.parse(JSON.stringify(morfologiamandibulas)),
+            message: JSON.parse(JSON.stringify(pesomandibulas)),
             success: true,
         });
     } catch (error) {

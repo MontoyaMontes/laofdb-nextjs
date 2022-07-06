@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useState } from "react";
 
-export default function Home({ morfologiasMandibulas }) {
+export default function Home({ morfologiasMandibulas, dataPesomandibulas }) {
   const [cargado, setCargado] = useState(false)
 
   const handleClick = () => {
@@ -72,7 +72,55 @@ export default function Home({ morfologiasMandibulas }) {
                 )
               )
               :
-              <h1>Datos</h1>
+                
+                
+                  dataPesomandibulas.map(
+                ({
+                  _id,
+                  marcaTemporal,
+                  evaluador,
+                  nombre,
+                  numeroMandibula,
+                  idCodigoMandibula,
+                  pesoMiligramos,
+                  observacionesRelacionadasAPeso,
+                  dientes,
+                  cuantos,
+                  cuales48,
+                  cuales47,
+                  cuales46,
+                  cuales45,
+                  cuales44,
+                  cuales43,
+                  cuales42,
+                  cuales41,
+                  cuales38,
+                  cuales37,
+                  cuales36,
+                  cuales35,
+                  cuales34,
+                  cuales33,
+                  cuales32,
+                  cuales31,
+                  comentarios,
+                }) => (
+                  <div className="card mb-2" key={_id}>
+                    <div className="card-body">
+                      <div className="h4">ID: {numeroMandibula} - {idCodigoMandibula}</div>
+                      <p>Marca temporal: {marcaTemporal}</p>
+                      <p>Evaluador: {evaluador}</p>
+                      <p>Nombre: {nombre}</p>
+                      <p>pesoMiligramos: {pesoMiligramos}</p>
+                      <p>observacionesRelacionadasAPeso: {observacionesRelacionadasAPeso}</p>
+                      <p>dientes: {dientes}</p>
+                      <p>cuantos: {cuantos}</p>
+                      <p>cuales48: {cuales48}</p>
+                      <p>cuales47: {cuales47}</p>
+                      <p>cuales46: {cuales46}</p>
+                    </div>
+                  </div>
+                )
+              )
           }
         </div>
 
@@ -90,9 +138,16 @@ export async function getServerSideProps(ctx) {
   // extract the data
   let data = await response.json();
 
+
+  // Llamada desde API
+  let response2 = await fetch(`${dev ? DEV_URL : PROD_URL}/api/pesomuestras`);
+  // extract the data
+  let data2 = await response2.json();
+
   return {
     props: {
       morfologiasMandibulas: data['message'],
+      dataPesomandibulas: data2['message'],
     },
   };
 
