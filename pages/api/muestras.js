@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     // switch the methods
     switch (req.method) {
         case 'GET': {
-            return getMuestras(req, res);
+            return getMuestras(req, res, );
         }
 
         case 'POST': {
@@ -27,12 +27,19 @@ async function getMuestras(req,res){
         // connect to the database
         let { db } = await connectToDatabase();
         // fetch morfologiamandibulas
+
+        console.log("REQ:",req.query);
+        let a = req.query?.collection
+        let b = req.query?.limit
+        console.log("AB",typeof a,a,typeof b, b)
+
+
         let morfologiamandibulas = await db
-            .collection('morfologiamandibulas')
-            .find({}).limit(40)
+            .collection(a)
+            .find({}).limit(Number(b))
             .sort({ published: -1 })
             .toArray();
-        // return morfologiamandibulas
+        // return morfologia mandibulas
         return res.json({
             message: JSON.parse(JSON.stringify(morfologiamandibulas)),
             success: true,
