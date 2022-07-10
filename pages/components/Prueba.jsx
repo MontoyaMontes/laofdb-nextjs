@@ -6,8 +6,9 @@ export default function Data() {
     const [prueba, setPrueba] = useState([]);
     const [limit, setLimit] = useState(25)
     
-    let px = 'http://localhost:3000'
-  
+    //let px = 'http://localhost:3000'
+    let px = "https://laofdb-unam.vercel.app"
+
     const params = {
       collection: "morfologiamandibulas",
       limit: 40,
