@@ -29,10 +29,11 @@ async function getMuestras(req,res){
         // fetch morfologiamandibulas
 
         console.log("REQ:",req.headers);
+        let a = req.headers.collection
         let b = req.headers.limit
 
         let morfologiamandibulas = await db
-            .collection("morfologiamandibulas")
+            .collection(a)
             .find({}).limit(Number(b))
             .sort({ published: -1 })
             .toArray();
