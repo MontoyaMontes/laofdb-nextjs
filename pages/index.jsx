@@ -92,7 +92,7 @@ export default function Home() {
         {cargaDatos ? 
             <Prueba morfologiasMandibulas={morfologiamandibulas} dataPesomandibulas={pesomandibulas}></Prueba>
             :
-            <h1>Cargando</h1>
+            <h1>Pulsa 'Cargar BD' para ver resultados</h1>
         }
 
 

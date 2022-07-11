@@ -24,12 +24,11 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 
 ## Deploy on Vercel
 
-Link to vercel (WIP)
+[Link to vercel](https://laofdb.vercel.app/) 
 
 ## TODO:
     [ ] Agrega link para entrar con ID (con navlink)
     [ ] Agregar imagenes de muestra
     [ ] Agregar agregar/modificar datos?
-    [ ] Subir a vercel
-    [ ] Modificar documentos, eiminar información equivocada, así como ids y demás
-    [ ] MOdifica tarjetas en index de morfologias
+    [ ] Agregar búsqueda
+    [ ] Mejorar UI/UX
