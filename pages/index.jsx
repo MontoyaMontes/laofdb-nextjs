@@ -16,8 +16,8 @@ export default function Home() {
     //const PROD_URL = process.env.PROD_URL;
 
     let DEV_URL = "http://localhost:3000" 
-    let PROD_URL = "https://laofdb-unam.vercel.app"
-  
+    let PROD_URL = "https://laofdb.vercel.app/"
+
     let response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/muestras`, {headers:{collection: "morfologiamandibulas",limit : limitMorfo} } )
     let data = await response.json()
     console.log("--",data.message,"--")

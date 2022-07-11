@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 
-export default function Data(props) {   
+export default function Data(props) {  
+ 
   return (
+
 <div>
   <h1>Base de datos Morfologías</h1>
   {
