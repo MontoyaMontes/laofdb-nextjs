@@ -5,7 +5,7 @@ export default function Data(props) {
   return (
 
 <div>
-  <h1>Base de datos Morfologías</h1>
+  <h2>Datos</h2>
   {
       props.morfologiasMandibulas?.map(
         ({
@@ -54,7 +54,7 @@ export default function Data(props) {
         )
       )}
         
-  <h1>Base de datos pesos</h1>
+  {/* <h1>Base de datos pesos</h1> */}
 
         {  props.dataPesomandibulas?.map(
         ({
