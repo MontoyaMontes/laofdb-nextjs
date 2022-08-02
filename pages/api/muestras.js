@@ -26,18 +26,20 @@ async function getMuestras(req,res){
     try {
         // connect to the database
         let { db } = await connectToDatabase();
-        // fetch morfologiamandibulas
-
+        
+        // fetch 
         console.log("REQ:",req.headers);
-        let a = req.headers.collection
-        let b = req.headers.limit
+        let collection = req.headers.collection
+        let limit = req.headers.limit
 
+        // En find se puede poner búsqueda por ID u otros
         let morfologiamandibulas = await db
-            .collection(a)
-            .find({}).limit(Number(b))
+            .collection(collection)
+            .find({}).limit(Number(limit))
             .sort({ published: -1 })
             .toArray();
-        // return morfologia mandibulas
+
+        // return 
         return res.json({
             message: JSON.parse(JSON.stringify(morfologiamandibulas)),
             success: true,
