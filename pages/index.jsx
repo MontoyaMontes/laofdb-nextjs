@@ -19,7 +19,7 @@ export default function Home() {
     let DEV_URL = "http://localhost:3000" 
     let PROD_URL = "https://laofdb.vercel.app/"
 
-    // Cada uno podría cargarse por separado, poniendo en headers el nombre de la collección
+    // Cada uno se puede cargar por separado, poniendo en headers el nombre de la collección
     let response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/muestras`, {headers:{collection: "morfologiamandibulas", limit : limitMorfo} } )
     let data = await response.json()
     console.log("--",data.message,"--")
