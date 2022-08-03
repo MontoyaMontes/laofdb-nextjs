@@ -16,7 +16,7 @@ export default function Index() {
             //const DEV_URL = process.env.DEV_URL;
             //const PROD_URL = process.env.PROD_URL;
 
-            let DEV_URL = "http://localhost:3000"
+            let DEV_URL = "http://localhost:3001"
             let PROD_URL = "https://laofdb.vercel.app/"
 
             // Cada uno se puede cargar por separado, poniendo en headers el nombre de la collección
