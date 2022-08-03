@@ -4,10 +4,11 @@ import Prueba from "../../pages/components/Prueba"
 
 export default function index({ data }) {
     return (
-        <div>
+        <div style={{ margin: '2rem' }}>
             <Layout
                 title="Muestras"
                 description="mi"
+                muestras
             >
 
                 Muestras

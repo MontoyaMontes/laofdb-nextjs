@@ -6,6 +6,8 @@ export default function Data(props) {
 
 <div>
   <h2>Datos</h2>
+  <h2>Total datos: {props.morfologiasMandibulas.length}</h2>
+
   {
       props.morfologiasMandibulas?.map(
         ({

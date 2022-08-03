@@ -1,12 +1,12 @@
 import Head from "next/head"
-// import styles from '../styles/Layout.module.css'
-// import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
-import Image from 'next/image';
 
 const Description = "Brief description"
 
-export default function Layout({ children, title, description, home }) {
+export default function Layout(
+    { children, title, description,
+        home, muestras, morfologia, morfometriaIzquierdas, pesoMandibulas }
+) {
     return (
         <div >
             <Head>
@@ -17,7 +17,7 @@ export default function Layout({ children, title, description, home }) {
                 >
                 </meta>
             </Head>
-            
+
             <h1>{title}</h1>
 
             <header >
@@ -27,50 +27,82 @@ export default function Layout({ children, title, description, home }) {
                     </>
                 ) : (
                     <>
-                        <Link href="/">
+                        
+                        {/* <Link href="/">
                             <a>
-                               
                             </a>
-                        </Link>
-                        <h2 >
+                        </Link> */}
+                        {/* <h2 >
                             <Link href="/">
                                 <a >Home</a>
                             </Link>
-                        </h2>
+                        </h2> */}
                     </>
                 )}
             </header>
 
-            <nav>
-                <Link href="/">
-                    <a>Inicio | </a>
-                </Link>
-                <Link href="/muestras">
-                    <a>muestras | </a>
-                </Link>
-                <Link href="/morfologiaMandibulas">
-                    <a>morfologia mandibulas | </a>
-                </Link>
-                <Link href="/morfometriaIzquierdas">
-                    <a>morfometria izquiefas | </a>
-                </Link>
-                <Link href="/pesoMandibulas">
-                    <a>peso mandibulas</a>
-                </Link>
-            </nav>
+            <ul className="nav nav-tabs">
+                {home ?
+                    <Link href="/" className="nav-item">
+                        <a className="nav-link active">Inicio  </a>
+                    </Link>
+                    :
+                    <Link href="/" className="nav-item">
+                        <a className="nav-link">Inicio  </a>
+                    </Link>
+                }
+                {muestras ?
+                    <Link href="/muestras" className="nav-item">
+                        <a className="nav-link active">Muestras </a>
+                    </Link>
+                    :
+                    <Link href="/muestras" className="nav-item">
+                        <a className="nav-link">Muestras </a>
+                    </Link>
+                }
+                {morfologia ?
+                    <Link href="/morfologiaMandibulas" className="nav-item">
+                        <a className="nav-link active">Morfologia mandibulas  </a>
+                    </Link>
+                    :
+                    <Link href="/morfologiaMandibulas" className="nav-item">
+                        <a className="nav-link" >Morfologia mandibulas  </a>
+                    </Link>
+                }
+                {morfometriaIzquierdas ?
+                    <Link href="/morfometriaIzquierdas" className="nav-item">
+                        <a className="nav-link active">Morfometria izquierda  </a>
+                    </Link>
+                    :
+                    <Link href="/morfometriaIzquierdas" className="nav-item">
+                        <a className="nav-link">Morfometria izquierda  </a>
+                    </Link>
+                }
+                {pesoMandibulas ?
+                    <Link href="/pesoMandibulas" className="nav-item">
+                        <a className="nav-link active">Peso mandibulas</a>
+                    </Link>
+                    :
+                    <Link href="/pesoMandibulas" className="nav-item">
+                        <a className="nav-link">Peso mandibulas</a>
+                    </Link>
+                }
+            </ul>
 
             <main>
                 {children}
             </main>
 
-            {!home && (
-                <div >
-                    <Link href="/">
-                        <a>← Back to home</a>
-                    </Link>
-                </div>
-            )}
-        </div>
+            {
+                !home && (
+                    <div >
+                        <Link href="/">
+                            <a>← Regresar a inicio</a>
+                        </Link>
+                    </div>
+                )
+            }
+        </div >
     )
 }
 

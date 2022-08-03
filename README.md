@@ -27,8 +27,9 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 [Link to vercel](https://laofdb.vercel.app/) 
 
 ## TODO:
-    [ ] Agrega link para entrar con ID (con navlink)
+    [ ] Agrega link para entrar con ID (con navlink)?
     [ ] Agregar imagenes de muestra
     [ ] Agregar agregar/modificar datos?
     [ ] Agregar búsqueda
     [ ] Mejorar UI/UX
+    [ ] Paginar

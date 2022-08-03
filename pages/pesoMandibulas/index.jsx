@@ -20,7 +20,7 @@ export default function Index({ data }) {
             let DEV_URL = "http://localhost:3001"
             let PROD_URL = "https://laofdb.vercel.app/"
 
-            let response2 = await fetch(`${dev ? DEV_URL : PROD_URL}/api/muestras`, { headers: { collection: "pesomandibulas", limit: limitPesos } })
+            let response2 = await fetch(`${dev ? DEV_URL : PROD_URL}/api/muestras`, { headers: { collection: "pesomandibulas", limit: limitPesos} })
             let data2 = await response2.json()
             //console.log("--",data2.message,"--")
             setPesomandibulas(data2.message)
@@ -40,10 +40,11 @@ export default function Index({ data }) {
     }
 
     return (
-        <div>
+        <div style={{ margin: '2rem' }}>
             <Layout
                 title="Pesos mandibulas"
                 description="uno"
+                pesoMandibulas
             >
 
                 <div>

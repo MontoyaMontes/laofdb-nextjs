@@ -5,10 +5,9 @@ import Prueba from "../../pages/components/Prueba"
 
 export default function Index() {
 
-    const [morfologiamandibulas, setMorfologiamandibulas] = useState([])
-    const [pesomandibulas, setPesomandibulas] = useState([])
+    const [responseData, setResponseData] = useState([])
     const [cargaDatos, setCargaDatos] = useState(false);
-    const [limitMorfo, setLimitMorfo] = useState(2)
+    const [limitData, setLimitData] = useState(0)
 
     useEffect(() => {
         async function getData() {
@@ -17,31 +16,30 @@ export default function Index() {
             //const DEV_URL = process.env.DEV_URL;
             //const PROD_URL = process.env.PROD_URL;
 
-            let DEV_URL = "http://localhost:3001"
+            let DEV_URL = "http://localhost:3000"
             let PROD_URL = "https://laofdb.vercel.app/"
 
             // Cada uno se puede cargar por separado, poniendo en headers el nombre de la collección
-            let response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/muestras`, { headers: { collection: "morfologiamandibulas", limit: limitMorfo } })
+            // Crear nuevo endpoint para buscar por ID
+            let response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/muestras`, { headers: { collection: "morfologiamandibulas", limit: limitData} })
+            //let response2 = await fetch(`${dev ? DEV_URL : PROD_URL}/api/muestras`, { headers: { collection: "pesomandibulas", limit: limitPesos} })
+
             let data = await response.json()
-            //console.log("--",data.message,"--")
 
-            setMorfologiamandibulas(data.message)
-            //console.log("--",data,"--")
-
-            let response2 = await fetch(`${dev ? DEV_URL : PROD_URL}/api/muestras`, { headers: { collection: "pesomandibulas", limit: limitPesos } })
-            let data2 = await response2.json()
-            //console.log("--",data2.message,"--")
-            setPesomandibulas(data2.message)
+            setResponseData(data.message)
         }
 
-        if (cargaDatos)
+        if (cargaDatos){
             getData()
-    }, [cargaDatos, limitMorfo])
+            !cargaDatos
+        }
+
+    }, [cargaDatos, limitData])
 
     useEffect(() => {
-        console.log("1->", morfologiamandibulas, pesomandibulas, "<-1")
-        morfologiamandibulas.map(e => { console.log(e) })
-    }, [morfologiamandibulas, pesomandibulas])
+        console.log("1->", setResponseData, "<-1")
+        responseData.map(e => { console.log(e) })
+    }, [responseData])
 
     const handleLoadData = () => {
         setCargaDatos(!cargaDatos)
@@ -52,6 +50,7 @@ export default function Index() {
             <Layout
                 title="Morfologías"
                 description="uno"
+                morfologia
             >
                 <div>
                     <label>Total de datos:</label>
@@ -60,8 +59,8 @@ export default function Index() {
                         type='number'
                         id="morfo"
                         min='0'
-                        value={limitMorfo}
-                        onChange={e => setLimitMorfo(e.target.value)}
+                        value={limitData}
+                        onChange={e => setLimitData(e.target.value)}
                     >
                     </input>
                     <label >Búscar por ID:</label>
@@ -69,8 +68,8 @@ export default function Index() {
                         className="form-control"
                         value={"Aún no disponible"}
                         disabled
-                        //value={limitPesos}
-                        onChange={e => setLimitMorfo(e.target.value)}
+                        //value={limitData}
+                        onChange={e => setLimitData(e.target.value)}
                     >
                     </input>
                 </div>
@@ -81,7 +80,7 @@ export default function Index() {
 
                 <div className="container">
                     {cargaDatos ?
-                        <Prueba morfologiasMandibulas={morfologiamandibulas}></Prueba>
+                        <Prueba morfologiasMandibulas={responseData}></Prueba>
                         :
                         <h1>Pulsa <b>Cargar BD</b> para ver resultados</h1>
                     }
