@@ -1,6 +1,5 @@
 import Layout from "../../components/Layout"
-import Link from "next/dist/client/link"
-import Prueba from "../../pages/components/Prueba"
+import Datos from "../../components/Datos"
 
 export default function index({ data }) {
     return (
@@ -11,8 +10,7 @@ export default function index({ data }) {
                 morfometriaIzquierdas
             >
 
-                morfometria izquierdas
-
+                <Datos collection={"morfometriasizquierdas"}></Datos>
             </Layout>
         </div>
     )

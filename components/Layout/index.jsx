@@ -1,5 +1,6 @@
 import Head from "next/head"
 import Link from 'next/link';
+import { Fragment } from "react";
 
 const Description = "Brief description"
 
@@ -13,7 +14,7 @@ export default function Layout(
                 <link rel="icon" href="/favicon.ico" />
                 <title>{title}</title>
                 <meta
-                    content={description}
+                    content={Description}
                 >
                 </meta>
             </Head>
@@ -22,22 +23,11 @@ export default function Layout(
 
             <header >
                 {home ? (
-                    <>
-                        <h6 >{Description}</h6>
-                    </>
+                    <Fragment>
+                        <h6 >{description}</h6>
+                    </Fragment>
                 ) : (
-                    <>
-                        
-                        {/* <Link href="/">
-                            <a>
-                            </a>
-                        </Link> */}
-                        {/* <h2 >
-                            <Link href="/">
-                                <a >Home</a>
-                            </Link>
-                        </h2> */}
-                    </>
+                    <Fragment/>
                 )}
             </header>
 
@@ -107,6 +97,6 @@ export default function Layout(
 }
 
 Layout.defaultProps = {
-    title: "Next.js | sitio web",
-    description: "Descripción genérica"
+    title: "Página de bd de LAOF",
+    //description: "Descripción genérica"
 }

@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     // switch the methods
     switch (req.method) {
         case 'GET': {
-            return getMuestras(req, res, );
+            return getMuestras(req, res,);
         }
 
         case 'POST': {
@@ -22,20 +22,21 @@ export default async function handler(req, res) {
     }
 }
 
-async function getMuestras(req,res){
+async function getMuestras(req, res) {
     try {
         // connect to the database
         let { db } = await connectToDatabase();
-        
+
         // fetch 
-        console.log("REQ:",req.headers);
+        console.log("REQ:", req.headers);
         let collection = req.headers.collection
         let limit = req.headers.limit
+        // let idCodigoMandibulaR = req.headers.idCodigoMandibulaR
 
         // En find se puede poner búsqueda por ID u otros
         let morfologiamandibulas = await db
             .collection(collection)
-            .find({}).limit(Number(limit))
+            .find({ }).limit(Number(limit))
             .sort({ published: -1 })
             .toArray();
 

@@ -1,12 +1,10 @@
 import Head from "next/head";
-import Prueba from '../pages/components/Prueba'
 import { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 // import { Button } from "bootstrap";
 
 export default function Home() {
 
-  //<Prueba morfologiasMandibulas={morfologiamandibulas} dataPesomandibulas={pesomandibulas}></Prueba>
 
   return (
 
@@ -20,7 +18,6 @@ export default function Home() {
 
       <Layout
         title="Home"
-        description="Home desc"
         home
       >
         <section >

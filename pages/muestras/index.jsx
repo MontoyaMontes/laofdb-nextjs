@@ -1,6 +1,6 @@
 import Layout from "../../components/Layout"
 import Link from "next/dist/client/link"
-import Prueba from "../../pages/components/Prueba"
+import Datos from "../../components/Datos"
 
 export default function index({ data }) {
     return (
