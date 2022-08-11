@@ -10,6 +10,7 @@ export default function Index({ data }) {
                 description="uno"
                 pesoMandibulas
             >
+                
                 <Datos collection={"pesomandibulas"}></Datos>
 
             </Layout>

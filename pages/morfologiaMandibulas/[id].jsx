@@ -7,22 +7,96 @@ export default function Page(props) {
     const { query, isReady } = useRouter();
     const [id, setId] = useState("")
 
+    const [responseData, setResponseData] = useState([])
+    const [limitData, setLimitData] = useState(1)
+
     useEffect(() => {
+
+        async function getData() {
+            let dev = process.env.NODE_ENV !== 'production';
+
+            let DEV_URL = "http://localhost:3001"
+            let PROD_URL = "https://laofdb.vercel.app/"
+
+            let response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/muestras`, { headers: { collection: "morfologiamandibulas", limit: 1, idCodigo: id } })
+            // Hacer response de información general del usuario
+            let data = await response.json()
+            setResponseData(data.message)
+        }
+
         if (!isReady) {
             return
-        };
-        // console.log(query);
-        setId(query.id)
-        // console.log(id);
-    }, [isReady, query.id])
+        } else {
+            setId(query.id)
+            getData()
+        }
+
+    }, [id, isReady, query.id])
+
+    useEffect(() => {
+        console.log("3->", setResponseData, "<-3")
+        console.log("4->", responseData, "<-4")
+    }, [responseData])
 
     return (
-        <Layout
-            title={id} 
-            description="{id}"
-            morfologia
-        >
-            ID {id}
-        </Layout>
+        <div style={{ margin: '2rem' }}>
+
+            <Layout
+                title="Registro de usuario"
+                description="{id}"
+                morfologia
+            >
+                {
+                    responseData.map(
+                        ({
+                            _id,
+                            marcaTemporal,
+                            evaluador,
+                            nombre,
+                            numeroMandibula,
+                            idCodigoMandibula,
+                            impresionTotalIzquierda,
+                            mentonIzquierda,
+                            anguloMandibularIzquierda,
+                            anguloMandibularDerecha,
+                            eversionGonialIzquierda,
+                            eversionGonialDerecha,
+                            margenInferiorIzquierda,
+                            cuerpoMandibularIzquierda,
+                            ramaMandibularIzquierda,
+                            ramaMandibularDerecha,
+                            incisuraMandibularEscotaduraSigmoideaIzquierda,
+                            incisuraMandibularEscotaduraSigmoideaDerecha,
+                            procesoCondilarIzquierda,
+                            procesoCondilarDerecha,
+                            procesoCoronoideIzquierda,
+                            procesoCoronoideDerecha,
+                            archoDentalIzquierda,
+                            dientesNumero,
+                            comentarios,
+                            dienteIzquierda,
+                        }) => (
+                            <div className="card mb-2" key={_id}>
+                                <div className="card-body">
+                                    <div className="h4"> ID: {idCodigoMandibula} </div>
+                                    <p>Código: {numeroMandibula} </p>
+                                    <p>Marca temporal: {marcaTemporal}</p>
+                                    <p>Evaluador: {evaluador}</p>
+                                    <p>Nombre: {nombre}</p>
+                                    <p>Impresion Total Izquierda: {impresionTotalIzquierda}</p>
+                                    <p>Menton Izquierda: {mentonIzquierda}</p>
+                                    <p>anguloMandibularIzquierda: {anguloMandibularIzquierda}</p>
+                                    <p>anguloMandibularDerecha: {anguloMandibularDerecha}</p>
+                                    <p>eversionGonialDerecha: {eversionGonialDerecha}</p>
+                                    <p>anguloMandibularDerecha: {anguloMandibularDerecha}</p>
+                                    <p>comentarios: {comentarios}</p>
+                                </div>
+                            </div>
+                        )
+                    )
+                }
+
+            </Layout >
+        </div>
     )
 }

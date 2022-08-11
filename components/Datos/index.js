@@ -13,6 +13,8 @@ export default function Data(props) {
   const [cargaDatos, setCargaDatos] = useState(false);
   const [limitData, setLimitData] = useState(1)
   const [totalDatos, setTotalDatos] = useState(0)
+  const [idCodigo, setIdCodigo] = useState()
+
   const [collectionName, setCollectionName] = useState("")
 
   useEffect(() => {
@@ -32,8 +34,7 @@ export default function Data(props) {
       let DEV_URL = "http://localhost:3001"
       let PROD_URL = "https://laofdb.vercel.app/"
 
-      // Crear nuevo endpoint para buscar por ID
-      let response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/muestras`, { headers: { collection: collectionName, limit: limitData } })
+      let response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/muestras`, { headers: { collection: collectionName, limit: limitData, idCodigo: idCodigo } })
 
       let data = await response.json()
       setResponseData(data.message)
@@ -45,7 +46,7 @@ export default function Data(props) {
       setTotalDatos(responseData.length)
     }
 
-  }, [cargaDatos, collectionName, limitData, responseData.length])
+  }, [cargaDatos, collectionName, idCodigo, limitData, responseData.length])
 
   useEffect(() => {
     console.log("1->", setResponseData, "<-1")
@@ -74,15 +75,13 @@ export default function Data(props) {
           <label >Búscar por ID:</label>
           <input
             className="form-control"
-            value={"Aún no disponible"}
-            disabled
-            //value={limitData}
-            onChange={e => setLimitData(e.target.value)}
+            value={idCodigo}
+            onChange={e => setIdCodigo(e.target.value)}
           >
           </input>
         </div>
 
-        <button className="btn btn-primary" onClick={handleLoadData}>
+        <button type="button" className="btn btn-primary" onClick={handleLoadData}>
           Mostrar Datos
         </button>
       </div>
@@ -101,47 +100,22 @@ export default function Data(props) {
             nombre,
             numeroMandibula,
             idCodigoMandibula,
-            impresionTotalIzquierda,
-            mentonIzquierda,
-            anguloMandibularIzquierda,
-            anguloMandibularDerecha,
-            eversionGonialIzquierda,
-            eversionGonialDerecha,
-            margenInferiorIzquierda,
-            cuerpoMandibularIzquierda,
-            ramaMandibularIzquierda,
-            ramaMandibularDerecha,
-            incisuraMandibularEscotaduraSigmoideaIzquierda,
-            incisuraMandibularEscotaduraSigmoideaDerecha,
-            procesoCondilarIzquierda,
-            procesoCondilarDerecha,
-            procesoCoronoideIzquierda,
-            procesoCoronoideDerecha,
-            archoDentalIzquierda,
-            dientesNumero,
-            comentarios,
-            dienteIzquierda,
           }) => (
             <div className="card mb-2" key={_id}>
               <div className="card-body">
-                <div className="h4"> ID: {idCodigoMandibula} |</div>
-                <button className="btn btn-seconday">
-                  <Link href={`/morfologiaMandibulas/${_id}`} as={`/morfologiaMandibulas/${_id}`}>
-                    <a>{_id}</a>
-                  </Link>
-                </button>
-
-                <div>Código: {numeroMandibula} </div>
+                <div className="h4">
+                  <button type="button" className="btn btn-info">
+                    <Link href={`/morfologiaMandibulas/${_id}`} as={`/morfologiaMandibulas/${_id}`}>
+                      <a style={{ color: "white", textDecoration: "none" }}>Más</a>
+                      {/* {_id} */}
+                    </Link>
+                  </button>
+                  ID: {idCodigoMandibula}
+                </div>
+                <p>Código: {numeroMandibula} </p>
                 <p>Marca temporal: {marcaTemporal}</p>
                 <p>Evaluador: {evaluador}</p>
                 <p>Nombre: {nombre}</p>
-                <p>Impresion Total Izquierda: {impresionTotalIzquierda}</p>
-                <p>Menton Izquierda: {mentonIzquierda}</p>
-                <p>anguloMandibularIzquierda: {anguloMandibularIzquierda}</p>
-                <p>anguloMandibularDerecha: {anguloMandibularDerecha}</p>
-                <p>eversionGonialDerecha: {eversionGonialDerecha}</p>
-                <p>anguloMandibularDerecha: {anguloMandibularDerecha}</p>
-                <p>comentarios: {comentarios}</p>
               </div>
             </div>
           )
@@ -203,16 +177,3 @@ export default function Data(props) {
     </div >
   )
 }
-
-// {
-//   data.map(({ id, title, body }) => (
-//     <div key={id}>
-//       <h3>
-//         <Link href={`/morfologiamandibulas/${id}`}>
-//           <a>{id}-{title}</a>
-//         </Link>
-//       </h3>
-//       <p>{body}</p>
-//     </div>
-//   ))
-// } 

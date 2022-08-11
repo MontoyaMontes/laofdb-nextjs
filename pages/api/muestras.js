@@ -31,18 +31,31 @@ async function getMuestras(req, res) {
         console.log("REQ:", req.headers);
         let collection = req.headers.collection
         let limit = req.headers.limit
-        // let idCodigoMandibulaR = req.headers.idCodigoMandibulaR
+        let idCodigo = req.headers.idcodigo
 
-        // En find se puede poner búsqueda por ID u otros
-        let morfologiamandibulas = await db
-            .collection(collection)
-            .find({ }).limit(Number(limit))
-            .sort({ published: -1 })
-            .toArray();
+        let muestra
+
+        console.log("1", idCodigo, collection, limit, typeof idCodigo, idCodigo.length === 12)
+        // En find se puede poner búsqueda por ID u otros 62b6833576a1ea506e185d12
+        
+        if (typeof idCodigo !== 'undefined' && idCodigo.length === 12 || idCodigo.length === 24) {
+
+            muestra = await db
+                .collection(collection)
+                .find({ _id: ObjectId(idCodigo) }).limit(Number(limit))
+                .sort({ published: -1 })
+                .toArray();
+        } else {
+            muestra = await db
+                .collection(collection)
+                .find({}).limit(Number(limit))
+                .sort({ published: -1 })
+                .toArray();
+        }
 
         // return 
         return res.json({
-            message: JSON.parse(JSON.stringify(morfologiamandibulas)),
+            message: JSON.parse(JSON.stringify(muestra)),
             success: true,
         });
     } catch (error) {

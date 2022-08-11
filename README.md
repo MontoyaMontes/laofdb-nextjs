@@ -30,7 +30,6 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
     [ ] Pintar toda la info con [ID]
     [ ] Agregar imagenes de muestra
     [ ] Agregar agregar/modificar datos?
-    [ ] Agregar búsqueda (con nuevo endpoint o desde inicio)
     [ ] Mejorar UI/UX
     [ ] Paginar o poner en tablas con MUI
     [ ] Agregar botón para regresar atrás
