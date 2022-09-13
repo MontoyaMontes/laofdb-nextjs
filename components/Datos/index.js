@@ -1,5 +1,7 @@
+import { Collapse, FormControlLabel, Switch } from "@mui/material";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
+import { CollapseCard } from "../CollapseCard/CollapseCard";
 
 // Colecciones disponibles:
 //  morfologiamandibulas
@@ -7,6 +9,8 @@ import React, { useState, useEffect } from "react";
 // muestras <- General, aún trabajandola
 // pesomandibulas
 
+
+// Maneja(ra) los datos de manera igual para cualquier coleción
 export default function Data(props) {
 
   const [responseData, setResponseData] = useState([])
@@ -48,10 +52,11 @@ export default function Data(props) {
 
   }, [cargaDatos, collectionName, idCodigo, limitData, responseData.length])
 
-  useEffect(() => {
-    console.log("1->", setResponseData, "<-1")
-    console.log("2->", responseData, "<-2")
-  }, [responseData])
+  // Para el desarrollador este hook
+  // useEffect(() => {
+  //   console.log("1->", setResponseData, "<-1")
+  //   console.log("2->", responseData, "<-2")
+  // }, [responseData])
 
   const handleLoadData = () => {
     setCargaDatos(!cargaDatos)
@@ -102,27 +107,20 @@ export default function Data(props) {
             idCodigoMandibula,
           }) => (
             <div className="card mb-2" key={_id}>
-              <div className="card-body">
-                <div className="h4">
-                  <button type="button" className="btn btn-info">
-                    <Link href={`/morfologiaMandibulas/${_id}`} as={`/morfologiaMandibulas/${_id}`}>
-                      <a style={{ color: "white", textDecoration: "none" }}>Más</a>
-                      {/* {_id} */}
-                    </Link>
-                  </button>
-                  ID: {idCodigoMandibula}
-                </div>
-                <p>Código: {numeroMandibula} </p>
-                <p>Marca temporal: {marcaTemporal}</p>
-                <p>Evaluador: {evaluador}</p>
-                <p>Nombre: {nombre}</p>
-              </div>
+              <CollapseCard item={
+                [_id,
+                  marcaTemporal,
+                  evaluador,
+                  nombre,
+                  numeroMandibula,
+                  idCodigoMandibula]} />
             </div>
           )
         )
       }
 
       {/* Base de datos pesos */}
+      {/* Se limpiará ya que las colecciones mostraran por defecto lo mismo */}
 
       {
         collectionName === "pesomandibulas" &&

@@ -1,6 +1,5 @@
-import Layout from "../../components/Layout"
 import React, { useState, useEffect } from "react";
-
+import Layout from "../../components/Layout"
 import Router, { useRouter } from "next/router";
 
 export default function Page(props) {
@@ -17,7 +16,7 @@ export default function Page(props) {
 
             let DEV_URL = "http://localhost:3001"
             let PROD_URL = "https://laofdb.vercel.app/"
-
+            // Obtiene el id pedido
             let response = await fetch(`${dev ? DEV_URL : PROD_URL}/api/muestras`, { headers: { collection: "morfologiamandibulas", limit: 1, idCodigo: id } })
             // Hacer response de información general del usuario
             let data = await response.json()
@@ -42,7 +41,7 @@ export default function Page(props) {
         <div style={{ margin: '2rem' }}>
 
             <Layout
-                title="Registro de usuario"
+                title="Muestra de usuario"
                 description="{id}"
                 morfologia
             >
@@ -78,7 +77,7 @@ export default function Page(props) {
                         }) => (
                             <div className="card mb-2" key={_id}>
                                 <div className="card-body">
-                                    <div className="h4"> ID: {idCodigoMandibula} </div>
+                                    <div className="h4"> ID: {idCodigoMandibula} | id:{_id}</div>
                                     <p>Código: {numeroMandibula} </p>
                                     <p>Marca temporal: {marcaTemporal}</p>
                                     <p>Evaluador: {evaluador}</p>
@@ -87,9 +86,24 @@ export default function Page(props) {
                                     <p>Menton Izquierda: {mentonIzquierda}</p>
                                     <p>anguloMandibularIzquierda: {anguloMandibularIzquierda}</p>
                                     <p>anguloMandibularDerecha: {anguloMandibularDerecha}</p>
+                                    <p>eversionGonialIzquierda: {eversionGonialIzquierda}</p>
                                     <p>eversionGonialDerecha: {eversionGonialDerecha}</p>
                                     <p>anguloMandibularDerecha: {anguloMandibularDerecha}</p>
                                     <p>comentarios: {comentarios}</p>
+                                    <p>margenInferiorIzquierda: {margenInferiorIzquierda}</p>
+                                    <p>cuerpoMandibularIzquierda: {cuerpoMandibularIzquierda}</p>
+                                    <p>ramaMandibularIzquierda: {ramaMandibularIzquierda}</p>
+                                    <p>ramaMandibularDerecha: {ramaMandibularDerecha}</p>
+                                    <p>incisuraMandibularEscotaduraSigmoideaIzquierda: {incisuraMandibularEscotaduraSigmoideaIzquierda}</p>
+                                    <p>incisuraMandibularEscotaduraSigmoideaDerecha: {incisuraMandibularEscotaduraSigmoideaDerecha}</p>
+                                    <p>procesoCondilarIzquierda: {procesoCondilarIzquierda}</p>
+                                    <p>procesoCondilarDerecha: {procesoCondilarDerecha}</p>
+                                    <p>procesoCoronoideIzquierda: {procesoCoronoideIzquierda}</p>
+                                    <p>procesoCoronoideDerecha: {procesoCoronoideDerecha}</p>
+                                    <p>archoDentalIzquierda: {archoDentalIzquierda}</p>
+                                    <p>dientesNumero: {dientesNumero}</p>
+                                    <p>comentarios: {comentarios}</p>
+                                    <p>dienteIzquierda: {dienteIzquierda}</p>
                                 </div>
                             </div>
                         )

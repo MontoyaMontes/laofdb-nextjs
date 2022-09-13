@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     // switch the methods
     switch (req.method) {
         case 'GET': {
-            return getMuestras(req, res,);
+            return getMuestras(req, res);
         }
 
         case 'POST': {
@@ -28,18 +28,17 @@ async function getMuestras(req, res) {
         let { db } = await connectToDatabase();
 
         // fetch 
-        console.log("REQ:", req.headers);
+        // console.log("REQ:", req.headers);
         let collection = req.headers.collection
         let limit = req.headers.limit
         let idCodigo = req.headers.idcodigo
 
         let muestra
 
-        console.log("1", idCodigo, collection, limit, typeof idCodigo, idCodigo.length === 12)
-        // En find se puede poner búsqueda por ID u otros 62b6833576a1ea506e185d12
-        
+        // console.log("1", idCodigo, collection, limit, typeof idCodigo, idCodigo.length === 12)
+        // En find se puede poner búsqueda por ID u otros ej: 62b6833576a1ea506e185d12
+        // Se puede crear el objeto de manera dinamica, pero se deja para después 
         if (typeof idCodigo !== 'undefined' && idCodigo.length === 12 || idCodigo.length === 24) {
-
             muestra = await db
                 .collection(collection)
                 .find({ _id: ObjectId(idCodigo) }).limit(Number(limit))
@@ -53,7 +52,7 @@ async function getMuestras(req, res) {
                 .toArray();
         }
 
-        // return 
+        // return JSON
         return res.json({
             message: JSON.parse(JSON.stringify(muestra)),
             success: true,

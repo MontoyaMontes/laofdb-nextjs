@@ -1,7 +1,8 @@
+import React from "react";
 import Layout from "../../components/Layout"
 import Datos from "../../components/Datos"
 
-export default function Index({ data }) {
+export default function Index() {
 
     return (
         <div style={{ margin: '2rem' }}>
@@ -10,8 +11,8 @@ export default function Index({ data }) {
                 description="uno"
                 pesoMandibulas
             >
-                
-                <Datos collection={"pesomandibulas"}></Datos>
+
+                <Datos collection={"pesomandibulas"} />
 
             </Layout>
         </div>

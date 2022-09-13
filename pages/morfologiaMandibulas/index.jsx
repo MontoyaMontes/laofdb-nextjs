@@ -1,6 +1,5 @@
 import React from "react";
 import Layout from "../../components/Layout"
-
 import Datos from "../../components/Datos"
 
 export default function Index() {
@@ -12,7 +11,8 @@ export default function Index() {
                 description="uno"
                 morfologia
             >
-                <Datos collection={"morfologiamandibulas"}></Datos>
+                <Datos collection={"morfologiamandibulas"} />
+
             </Layout>
         </div>
     )

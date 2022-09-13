@@ -5,6 +5,7 @@ archivoMorfometriaIzquierda = './MorfometriaIzquierda.csv'
 archivoPesoMandibulas = './PesoMandibulas.csv'
 archivoMorfologiasMandibulas = './MorfologiasMandibulas.csv'
 
+# Esto puede guardarse en otro archivo como constantes
 camposMorfologia = [
     'marcaTemporal',
     'evaluador',
@@ -80,16 +81,18 @@ camposMorfometriaIzquierda = [
     'comentarios']
 
 def convertMongo(archivoExcel, campos):
-        
+    #  Archivo final
     documentos = archivoExcel.replace("./","").replace(".csv","DB.txt")
     
+    # Convierte fechas introducidas en excel a fechas de mongo
     def convert_date(dateString):
         dateTime = dateString.split(" ")
         dateFormated = datetime.datetime.strptime(dateTime[0], "%m/%d/%Y").strftime("%Y-%m-%d")
         return f'{dateFormated}T{dateTime[1]}Z'
 
+    # Falta normalizar para que códigos y demás entren a la bd normal
     def convert_to_BSON(line):
-        # Cambiar a un for en 
+        # Cambiar a un for
         res = ""
         i = 0
         while i < len(line):
@@ -108,7 +111,7 @@ def convertMongo(archivoExcel, campos):
 
 
     with open(archivoExcel) as csv_file:
-        file1 = open(documentos, "w") 
+        file = open(documentos, "w") 
         
         csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
@@ -126,8 +129,8 @@ def convertMongo(archivoExcel, campos):
                 line_count += 1
         print(f'Processed {line_count-1} docs.')
         documents = documents[:-2]
-        file1.write(f'[{documents}]')
-        file1.close() 
+        file.write(f'[{documents}]')
+        file.close() 
         
 #convertMongo(archivoPesoMandibulas, camposPesos)    
 convertMongo(archivoMorfometriaIzquierda, camposMorfometriaIzquierda)

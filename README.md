@@ -27,9 +27,7 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 [Link to vercel](https://laofdb.vercel.app/) 
 
 ## TODO:
-    [ ] Pintar toda la info con [ID]
     [ ] Agregar imagenes de muestra
     [ ] Agregar agregar/modificar datos?
-    [ ] Mejorar UI/UX
-    [ ] Paginar o poner en tablas con MUI
     [ ] Agregar botón para regresar atrás
+    [ ] Cambiar componente de arreglo a objeto
