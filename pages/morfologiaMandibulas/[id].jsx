@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../../components/Layout"
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
+
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from "next/link";
 
 export default function Page(props) {
+    const router = useRouter()
+
     const { query, isReady } = useRouter();
     const [id, setId] = useState("")
 
     const [responseData, setResponseData] = useState([])
-    const [limitData, setLimitData] = useState(1)
 
     useEffect(() => {
 
@@ -41,10 +46,22 @@ export default function Page(props) {
         <div style={{ margin: '2rem' }}>
 
             <Layout
-                title="Muestra de usuario"
-                description="{id}"
+                title="Detalles de: Morfologías"
+                description="Detalles"
                 morfologia
             >
+                <Breadcrumbs aria-label="breadcrumb">
+                    <span color="inherit" href='..' onClick={() => router.push({ pathname: '/' })} style={{ cursor: "pointer" }}>
+                        Inicio
+                    </span>
+                    <span color="inherit" href='...' onClick={() => router.back()} style={{ cursor: "pointer" }}>
+                        Busqueda
+                    </span>
+                    <Typography color="textPrimary">
+                        Muestra: {id}
+                    </Typography>
+                </Breadcrumbs>
+
                 {
                     responseData.map(
                         ({

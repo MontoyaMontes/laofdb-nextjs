@@ -1,7 +1,11 @@
-import { Collapse, FormControlLabel, Switch } from "@mui/material";
-import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { CollapseCard } from "../CollapseCard/CollapseCard";
+
+import { useRouter } from 'next/router'
+
+import Alert from '@mui/material/Alert';
+import Collapse from '@mui/material/Collapse';
+import AlertTitle from '@mui/material/AlertTitle';
 
 // Colecciones disponibles:
 //  morfologiamandibulas
@@ -9,9 +13,10 @@ import { CollapseCard } from "../CollapseCard/CollapseCard";
 // muestras <- General, aún trabajandola
 // pesomandibulas
 
-
-// Maneja(ra) los datos de manera igual para cualquier coleción
 export default function Data(props) {
+  const router = useRouter()
+
+  const [collectionName, setCollectionName] = useState("")
 
   const [responseData, setResponseData] = useState([])
   const [cargaDatos, setCargaDatos] = useState(false);
@@ -19,8 +24,9 @@ export default function Data(props) {
   const [totalDatos, setTotalDatos] = useState(0)
   const [idCodigo, setIdCodigo] = useState()
 
-  const [collectionName, setCollectionName] = useState("")
+  const [open, setOpen] = useState(false);
 
+  // Funciones de carga
   useEffect(() => {
     if (props.collection) {
       setCollectionName(props.collection)
@@ -53,13 +59,21 @@ export default function Data(props) {
   }, [cargaDatos, collectionName, idCodigo, limitData, responseData.length])
 
   // Para el desarrollador este hook
-  // useEffect(() => {
-  //   console.log("1->", setResponseData, "<-1")
-  //   console.log("2->", responseData, "<-2")
-  // }, [responseData])
+  useEffect(() => {
+    console.log("1->", setResponseData, "<-1")
+    console.log("2->", responseData, "<-2")
+  }, [responseData])
+
+  // Handlers
 
   const handleLoadData = () => {
     setCargaDatos(!cargaDatos)
+  }
+
+  const handleNewRegister = () => {
+    // console.log("aaaaa", router.asPath)
+    // Se usa router.asPath para tomar la ruta actual
+    router.push('/' + router.asPath + '/agregar')
   }
 
   return (
@@ -67,6 +81,7 @@ export default function Data(props) {
     <div>
       <div>
         <div>
+
           <label>Total de datos:</label>
           <input
             className="form-control"
@@ -86,17 +101,55 @@ export default function Data(props) {
           </input>
         </div>
 
-        <button type="button" className="btn btn-primary" onClick={handleLoadData}>
-          Mostrar Datos
-        </button>
+        <Collapse in={open}>
+          <Alert
+            severity="info"
+            action={
+              <button
+                aria-label="close"
+                className="btn btn-danger"
+                onClick={() => {
+                  setOpen(false);
+                }}
+              >
+                X
+              </button>
+            }
+            sx={{ mb: 2 }}
+          >
+            <AlertTitle>Carga activa</AlertTitle>
+            Los datos se están cargando continuamente, ingresa un valor
+          </Alert>
+        </Collapse>
+
+        <div className="d-flex justify-content-around">
+          {
+            cargaDatos ?
+              <button type="button" className="btn btn-light" onClick={() => {
+                setOpen(true)
+              }}>
+                Carga continua
+              </button>
+              :
+              <button type="button" className="btn btn-primary" onClick={handleLoadData}>
+                Cargar datos
+              </button>
+          }
+
+          <button type="button" className="btn btn-success" onClick={handleNewRegister}>
+            Agregar Registro
+          </button>
+        </div>
+
+
       </div>
 
-      <h2>Datos</h2>
-      <h2>Total datos: {totalDatos}</h2>
-      {console.log("+++", responseData, "+++")}
+      <h1>Resultados</h1>
+      <h2>Datos encontrados: {totalDatos}</h2>
 
-      {collectionName === "morfologiamandibulas" &&
+      {/* {console.log("+++", responseData, "+++")} */}
 
+      {
         responseData.map(
           ({
             _id,
@@ -106,6 +159,7 @@ export default function Data(props) {
             numeroMandibula,
             idCodigoMandibula,
           }) => (
+            // Key={_id} es importante para que el programa corra correctamente
             <div className="card mb-2" key={_id}>
               <CollapseCard item={
                 [_id,
@@ -113,65 +167,14 @@ export default function Data(props) {
                   evaluador,
                   nombre,
                   numeroMandibula,
-                  idCodigoMandibula]} />
+                  idCodigoMandibula]
+              }
+              />
             </div>
           )
         )
       }
 
-      {/* Base de datos pesos */}
-      {/* Se limpiará ya que las colecciones mostraran por defecto lo mismo */}
-
-      {
-        collectionName === "pesomandibulas" &&
-        responseData?.map(
-          ({
-            _id,
-            marcaTemporal,
-            evaluador,
-            nombre,
-            numeroMandibula,
-            idCodigoMandibula,
-            pesoMiligramos,
-            observacionesRelacionadasAPeso,
-            dientes,
-            cuantos,
-            cuales48,
-            cuales47,
-            cuales46,
-            cuales45,
-            cuales44,
-            cuales43,
-            cuales42,
-            cuales41,
-            cuales38,
-            cuales37,
-            cuales36,
-            cuales35,
-            cuales34,
-            cuales33,
-            cuales32,
-            cuales31,
-            comentarios,
-          }) => (
-            <div className="card mb-2" key={_id}>
-              <div className="card-body">
-                <div className="h4">ID: {numeroMandibula} - {idCodigoMandibula}</div>
-                <p>Marca temporal: {marcaTemporal}</p>
-                <p>Evaluador: {evaluador}</p>
-                <p>Nombre: {nombre}</p>
-                <p>pesoMiligramos: {pesoMiligramos}</p>
-                <p>observacionesRelacionadasAPeso: {observacionesRelacionadasAPeso}</p>
-                <p>dientes: {dientes}</p>
-                <p>cuantos: {cuantos}</p>
-                <p>cuales48: {cuales48}</p>
-                <p>cuales47: {cuales47}</p>
-                <p>cuales46: {cuales46}</p>
-              </div>
-            </div>
-          )
-        )
-      }
     </div >
   )
 }

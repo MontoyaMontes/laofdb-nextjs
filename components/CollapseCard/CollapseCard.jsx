@@ -1,32 +1,34 @@
 import { Collapse, FormControlLabel, Switch } from "@mui/material";
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
+// Componente que dado un item hace la carta desplegable
+export function CollapseCard({ item }) {
 
-// Componente que dado un item
-export function CollapseCard({item}) {
-  // !Cambiar
-  const [checked, setChecked] = useState(false);
+  const [showData, setShowData] = useState(false);
 
   const handleChange = () => {
-    setChecked((prev) => !prev);
+    setShowData((prev) => !prev);
   };
+
   return (
-    <Collapse in={checked} collapsedSize={65}>
+    <Collapse in={showData} collapsedSize={60}>
 
       <div className="card-body">
-        <div className="h4">
+        <div className="h4 d-flex justify-content-between">
+
           <FormControlLabel
-            control={<Switch checked={checked} onChange={handleChange} />}
+            control={<Switch checked={showData} onChange={handleChange} />}
             label="Mostrar más"
           />
+          ID: {item[4]}
+
           <button type="button" className="btn btn-info">
             <Link href={`/morfologiaMandibulas/${item[0]}`} as={`/morfologiaMandibulas/${item[0]}`}>
-              <a style={{ color: "white", textDecoration: "none" }}>Información detallada</a>
+              <a style={{ color: "white", textDecoration: "none" }}>Más</a>
               {/* {_id} */}
             </Link>
           </button>
-          ID: {item[4]}
 
         </div>
         <p>Código: {item[5]} </p>

@@ -28,6 +28,5 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 
 ## TODO:
     [ ] Agregar imagenes de muestra
-    [ ] Agregar agregar/modificar datos?
-    [ ] Agregar botón para regresar atrás
     [ ] Cambiar componente de arreglo a objeto
+    [ ] Revisar Breadcrumbs dónde quedan mejor

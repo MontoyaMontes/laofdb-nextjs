@@ -1,11 +1,11 @@
 import Head from "next/head"
 import Link from 'next/link';
 import { Fragment } from "react";
+import ScrollButton from "../ScrollButton";
 
 const Description = "Brief description about this app"
 
 // Layout que maneja la cabecera
-
 export default function Layout(
     // Props, si hay una nueva poner para ser renderizado en 'tabs' junto a su <Link>
     {
@@ -16,7 +16,8 @@ export default function Layout(
         muestras,
         morfologia,
         morfometriaIzquierdas,
-        pesoMandibulas
+        pesoMandibulas,
+        adding
     }
 ) {
     return (
@@ -31,7 +32,7 @@ export default function Layout(
             <h1>{title}</h1>
 
             <header >
-                {home && (
+                {true && (
                     <Fragment>
                         <h6 >{description}</h6>
                     </Fragment>
@@ -60,27 +61,22 @@ export default function Layout(
                 <Link href="/pesoMandibulas" className="nav-item">
                     <a className={pesoMandibulas ? "nav-link active" : "nav-link"}>Peso mandibulas</a>
                 </Link>
-
+                {/* Nuevas opciones aquí */}
             </ul>
 
             <main>
                 {children}
             </main>
 
-            {
-                !home && (
-                    <div >
-                        <Link href="/">
-                            <a>← Regresar a inicio</a>
-                        </Link>
-                    </div>
-                )
-            }
+            <div className="fixed-bottom">
+                <ScrollButton/>
+            </div>
+
         </div >
     )
 }
 // Props por defecto
 Layout.defaultProps = {
-    title: "Página de bd de LAOF",
-    description: "Página de bd de LAOF"
+    title: "",
+    description: ""
 }
